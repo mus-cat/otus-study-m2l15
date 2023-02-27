@@ -1,0 +1,15 @@
+---
+- name: Nginx
+  hosts: nginx_nodes
+  become: yes
+  gather_facts: yes
+  vars:
+    ansible_python_interpreter: /usr/bin/python3.7
+    ansible_ssh_common_args: "-o StrictHostKeyChecking=no"
+
+  roles:
+    - role: roles/alt_port_nginx
+      vars:
+        #alt_http_port: "{{ hostvars[inventory_hostname].alt_http_port }}"
+        nginx_http_port: "{{ alt_http_port }}"
+
